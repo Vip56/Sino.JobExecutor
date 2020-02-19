@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Sino.JobExecutor.Biz.Model
+﻿namespace Sino.JobExecutor.Biz.Model
 {
     public class ReturnT<T> where T : class
     {
         public static int SUCCESS_CODE = 200;
         public static int FAIL_CODE = 500;
 
-
+        public static ReturnT<string> SUCCESS = new ReturnT<string>(null);
+        public static ReturnT<string> FAIL = new ReturnT<string>(FAIL_CODE, null);
 
         public ReturnT() { }
+
+        public ReturnT(T content)
+        {
+            Code = SUCCESS_CODE;
+            Content = content;
+        }
 
         public ReturnT(int code, string msg)
         {
