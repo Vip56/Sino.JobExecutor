@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace Sino.JobExecutor.Biz
 {
     /// <summary>
-    /// 管理接口
+    /// 调度中心供执行器接口
     /// </summary>
     public interface IAdminBiz
     {

@@ -1,5 +1,8 @@
 ﻿namespace Sino.JobExecutor.Biz.Model
 {
+    /// <summary>
+    /// 响应数据模型
+    /// </summary>
     public class ReturnT<T> where T : class
     {
         public static int SUCCESS_CODE = 200;

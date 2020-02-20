@@ -1,5 +1,8 @@
 ﻿namespace Sino.JobExecutor.Biz.Model
 {
+    /// <summary>
+    /// 调度中心回调请求参数
+    /// </summary>
     public class HandleCallbackParam
     {
         public HandleCallbackParam() { }
