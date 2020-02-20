@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Collections.Concurrent;
-using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace Sino.JobExecutor.Job
 {
@@ -18,7 +17,15 @@ namespace Sino.JobExecutor.Job
         {
             _handlersCache = new ConcurrentDictionary<string, IJobHandler>();
             
+            if (jobHandlers == null || !jobHandlers.Any())
+            {
+                throw new ArgumentNullException(nameof(jobHandlers));
+            }
 
+            foreach(var handler in jobHandlers)
+            {
+
+            }
         }
 
         public IJobHandler GetJobHandler(string handlerName)
