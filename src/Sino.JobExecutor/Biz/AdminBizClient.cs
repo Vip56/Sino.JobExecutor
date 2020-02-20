@@ -28,7 +28,7 @@ namespace Sino.JobExecutor.Biz
 
             _clientFactory = clientFactory ?? throw new ArgumentNullException(nameof(clientFactory));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _addressUrl = addressUrl.EndsWith("/") ? accessToken : accessToken + "/";
+            _addressUrl = addressUrl.EndsWith("/") ? addressUrl : addressUrl + "/";
             _accessToken = accessToken;
         }
 
@@ -55,12 +55,10 @@ namespace Sino.JobExecutor.Biz
             {
                 var content = new StringContent(requestStr, Encoding.UTF8);
                 content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
-                content.Headers.Add("Accept-Charset", "application/json;charset=UTF-8");
-                content.Headers.Add("connection", "Keep-Alive");
 
                 if (!string.IsNullOrEmpty(accessToken))
                 {
-                    content.Headers.Add("XXL_RPC_ACCESS_TOKEN", accessToken);
+                    content.Headers.Add(XXL_RPC_ACCESS_TOKEN, accessToken);
                 }
 
                 HttpResponseMessage responseMessage = null;
