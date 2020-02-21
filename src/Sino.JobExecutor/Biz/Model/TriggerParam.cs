@@ -1,8 +1,10 @@
 ﻿namespace Sino.JobExecutor.Biz.Model
 {
+    /// <summary>
+    /// 触发执行任务参数
+    /// </summary>
     public class TriggerParam
     {
-
         public int JobId { get; set; }
 
         public string ExecutorHandler { get; set; }
