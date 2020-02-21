@@ -8,7 +8,7 @@ namespace Sino.JobExecutor.Core
     /// </summary>
     public interface ITaskExecutor
     {
-        string GlueType { get; }
+        string GlueTypeName { get; }
 
         Task<ReturnT<string>> Execute(TriggerParam triggerParam);
     }

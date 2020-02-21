@@ -1,9 +1,6 @@
 ﻿using Sino.JobExecutor.Biz.Model;
 using Sino.JobExecutor.Core;
 using Sino.JobExecutor.Job;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Sino.JobExecutor
@@ -13,13 +10,28 @@ namespace Sino.JobExecutor
     /// </summary>
     public class BeanTaskExecutor : ITaskExecutor
     {
-        private readonly IJobHandlerFactory jobHandlerFactory;
+        private readonly IJobHandlerFactory _handlerFactory;
+        private readonly IJobLogger _jobLogger;
 
-        public string GlueType => throw new NotImplementedException();
+        public BeanTaskExecutor(IJobHandlerFactory handlerFactory, IJobLogger jobLogger)
+        {
+            _handlerFactory = handlerFactory;
+            _jobLogger = jobLogger;
+        }
+
+        public string GlueTypeName => GlueType.BEAN;
 
         public Task<ReturnT<string>> Execute(TriggerParam triggerParam)
         {
-            throw new NotImplementedException();
+            var handler = _handlerFactory.GetJobHandler(triggerParam.ExecutorHandler);
+
+            if(handler == null)
+            {
+                return Task.FromResult(new ReturnT<string>(ReturnT<string>.FAIL_CODE, $"job handler [{triggerParam.ExecutorHandler}] not found."));
+            }
+
+            var context = new JobExecuteContext(_jobLogger, triggerParam.ExecutorParams);
+            return handler.Execute(context);
         }
     }
 }
