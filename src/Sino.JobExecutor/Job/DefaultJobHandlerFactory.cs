@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Reflection;
 
 namespace Sino.JobExecutor.Job
 {
@@ -24,13 +25,27 @@ namespace Sino.JobExecutor.Job
 
             foreach(var handler in jobHandlers)
             {
-
+                var jobHandlerAttr = handler.GetType().GetCustomAttribute<JobHandlerAttribute>();
+                var handlerName = jobHandlerAttr == null ? handler.GetType().Name : jobHandlerAttr.Name;
+                if (_handlersCache.ContainsKey(handlerName))
+                {
+                    throw new Exception($"Same IJobHandler Name: {handlerName}.");
+                }
+                _handlersCache.TryAdd(handlerName, handler);
             }
         }
 
         public IJobHandler GetJobHandler(string handlerName)
         {
-            throw new NotImplementedException();
+            if (_handlersCache.ContainsKey(handlerName))
+            {
+                IJobHandler handler = null;
+                if(_handlersCache.TryGetValue(handlerName, out handler))
+                {
+                    return handler;
+                }
+            }
+            return null;
         }
     }
 }
