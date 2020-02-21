@@ -1,7 +1,4 @@
 ﻿using Sino.JobExecutor.Biz.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Sino.JobExecutor.Job
